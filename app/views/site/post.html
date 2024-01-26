@@ -1,0 +1,17 @@
+{% extends 'site/master.html' %}
+
+{% block site %}
+<img src="{{ fields.photo }}" class="mb-3">
+
+<h2>{{ fields.title ? fields.title : title }}</h2>
+<div class="text-end text-body-secondary">
+  <b>{{ fields.name }}</b>, <small>{{ fields.created_at | date('d/m/Y H:i') }}</small> - {{ timeAgo(fields.created_at) }}
+</div>
+<hr>
+{{ message('message') }}
+
+<div class="form-group mb-2">
+ {{ fields.description }}
+</div>
+<a href="/" class="btn btn-danger float-end" title="Ir para a lista de posts">Voltar</a>
+{% endblock %}

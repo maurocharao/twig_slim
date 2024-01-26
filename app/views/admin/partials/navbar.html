@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-sm bg-body-secondary">
+ <div class="container-fluid">
+  <a class="navbar-brand" href="/admin/posts">A Blog</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="fa fa-bars"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item dropdown">
+     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+       Gerenciar
+     </a>
+     <ul class="dropdown-menu">
+       <li><a class="dropdown-item" href="/admin/post/create">Cadastrar Post</a></li>
+       <li><a class="dropdown-item" href="/admin/users">Usuários Admin</a></li>
+     </ul>
+    </li>
+   </ul>
+   <form class="d-flex" role="search" method="get" action="/admin/posts">
+    <input class="form-control me-2" type="search" name="search" placeholder="Buscar post" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Buscar</button>
+   </form>
+   {% if admin %}
+    <li class="nav-item dropdown d-flex ms-3">
+     <a class="nav-link ps-0 dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+      {% if admin.photo %}
+       <img src="{{ admin.photo }}" width="48" class="rounded-circle">
+      {% else %}
+       <i class="fa fa-user me-1"></i>
+      {% endif %}
+      {{ admin.name | split(' ')[0] }}
+     </a>
+     <ul class="dropdown-menu dropdown-menu-end" role="menu">
+      <li><a class="dropdown-item" href="/admin/user/edit/{{ admin.id }}"><i class="fa fa-user me-1"></i>Editar perfil</a></li>
+      <li class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="/admin/logout"><i class="fas fa-sign-out-alt me-1"></i>Logout</a></li>
+     </ul>
+    </li>
+   {% endif %}
+  </div>
+ </div>
+</nav>

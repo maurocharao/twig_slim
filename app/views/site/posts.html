@@ -1,0 +1,32 @@
+{% extends 'site/master.html' %}
+
+{% block site %}
+<h2>{{ title }}</h2>
+{{ message('message') }}
+
+{% if not rows %}
+ <div class="alert alert-warning">Nenhum Post encontrado</div>
+{% else %}
+ {% for row in rows %}
+  <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+   <div class="col-auto d-none d-lg-block">
+    <img src="{{ row.photo }}">
+   </div>
+   <div class="col p-4 d-flex flex-column position-static">
+    <h3 class="mb-2">{{ row.title }}</h3>
+    <strong class="text-end text-primary-emphasis">{{ row.name }}</strong>
+    <p class="card-text mb-auto">{{ row.description }}</p>
+    <a href="/post/{{ row.slug }}" class="icon-link gap-1 icon-link-hover stretched-link">
+     Continue lendo
+    </a>
+    <div class="text-end text-body-secondary">
+     {{ row.created_at | date('d/m/Y H:i') }}, {{ timeAgo(row.created_at) }}
+    </div>
+   </div>
+  </div>
+ {% endfor %}
+
+ {{ links | raw }}
+{% endif %}
+
+{% endblock %}

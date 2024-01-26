@@ -1,0 +1,45 @@
+{% extends 'admin/master.html' %}
+
+{% block admin %}
+<h2>{{ title }}</h2>
+<hr>
+
+<div class="row">
+ <div class="col-sm-8">
+  {{ message('message') }}
+  <form action="/admin/post/save{{ fields.id ? '/' ~ fields.id : '' }}" method="post">
+   <div class="form-group mb-2">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" maxlength="150" class="form-control" placeholder="Titulo do post" value="{{ fields.title }}">
+    {{ message('title') }}
+   </div>
+   <div class="form-group mb-2">
+    <label for="slug">Slug</label>
+    <input type="text" name="slug" id="slug" maxlength="100" class="form-control" placeholder="Slug do post" value="{{ fields.slug }}">
+    {{ message('slug') }}
+   </div>
+   <div class="form-group mb-2">
+    <label for="description">Description</label>
+    <textarea name="description" id="description" class="form-control" rows="10">{{ fields.description }}</textarea>
+    {{ message('description') }}
+   </div>
+   <a href="/admin/posts" class="btn btn-danger float-end" title="Ir para a lista de posts">Voltar</a>
+   <button type="submit" class="btn btn-success">{{ fields.id ? 'Atualizar' : 'Adicionar' }}</button>
+  </form>
+ </div>
+ {% if fields.id %}
+ <div class="col-sm-4">
+  {{ message('message_upload') }}
+  <form action="/admin/post/photo/upload/{{ fields.id }}" method="post" enctype="multipart/form-data">
+   <img src="{{ fields.photo }}" width="300">
+   <div class="form-group mb-2">
+    <label for="file">Foto</label>
+    <input type="file" name="file" id="file" class="form-control" accept="image/png, image/jpeg, image/gif">
+   </div>
+   <button type="submit" class="btn btn-success">Upload</button>
+   {{ message('file') }}
+ </form>
+ </div>
+ {% endif %}
+</div>
+{% endblock %}

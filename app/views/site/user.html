@@ -1,0 +1,45 @@
+{% extends 'site/master.html' %}
+
+{% block site %}
+<h2>{{ title }}</h2>
+<hr>
+
+<div class="row">
+ <div class="col-sm-8">
+  {{ message('message') }}
+  <form action="/user/save{{ fields.id ? '/' ~ fields.id : '' }}" method="post">
+   <div class="form-group mb-2">
+    <label for="">Nome</label>
+    <input type="text" name="name" class="form-control" value="{{ fields.name }}">
+    {{ message('name') }}
+   </div>
+   <div class="form-group mb-2">
+    <label for="">Email</label>
+    <input type="text" name="email" class="form-control" value="{{ fields.email }}">
+    {{ message('email') }}
+   </div>
+   <div class="form-group mb-2">
+    <label for="">Telefone</label>
+    <input type="text" name="phone" class="form-control" value="{{ fields.phone }}">
+    {{ message('phone') }}
+   </div>
+   <a href="/users" class="btn btn-danger float-end" title="Ir para a lista de usuários">Voltar</a>
+   <button type="submit" class="btn btn-success">{{ fields.id ? 'Atualizar' : 'Adicionar' }}</button>
+  </form>
+ </div>
+ {% if fields.id %}
+ <div class="col-sm-4">
+  {{ message('message_upload') }}
+  {{ message('file') }}
+  <form action="/user/photo/upload/{{ fields.id }}" method="post" enctype="multipart/form-data">
+   <img src="{{ fields.photo }}" width="150" class="rounded-circle d-block mt-1">
+   <div class="form-group mb-2">
+    <label for="file">Foto</label>
+    <input type="file" name="file" id="file" class="form-control" accept="image/png, image/jpeg, image/gif">
+   </div>
+   <button type="submit" class="btn btn-success">Upload</button>
+ </form>
+ </div>
+ {% endif %}
+</div>
+{% endblock %}

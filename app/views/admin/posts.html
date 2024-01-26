@@ -1,0 +1,41 @@
+{% extends 'admin/master.html' %}
+
+{% block admin %}
+<h2>{{ title }}</h2>
+{{ message('message') }}
+
+{% if not rows %}
+  <div class="alert alert-warning">Nenhum Post encontrado</div>
+{% else %}
+ <table class="table table-striped">
+  <thead>
+   <tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Criado por</th>
+    <th>Postado</th>
+    <th>Atualizado</th>
+    <th></th>
+   </tr>
+  </thead>
+  <tbody>
+   {% for row in rows %}
+    <tr>
+     <td>{{ row.id }}</td>
+     <td>{{ row.title }}</td>
+     <td>{{ row.name }}</td>
+     <td title="{{ row.created_at | date('d/m/Y H:i:s') }}">{{ timeAgo(row.created_at) }}</td>
+     <td title="{{ row.updated_at | date('d/m/Y H:i:s') }}">{{ timeAgo(row.updated_at) }}</td>
+     <td style="white-space:nowrap">
+      <a class="btn btn-sm btn-success me-2" href="/admin/post/edit/{{ row.id }}">Editar</a>
+      <a class="btn btn-sm btn-danger" href="/admin/post/delete/{{ row.id }}">Excluir</a>
+     </td>
+    </tr>
+   {% endfor %}
+  </tbody>
+ </table>
+ <!-- <a href="/admin/post/create" class="btn btn-success float-end" title="Adicionar post">Adicionar</a> -->
+ {{ links | raw }}
+{% endif %}
+
+{% endblock %}

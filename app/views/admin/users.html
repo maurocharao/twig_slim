@@ -1,0 +1,39 @@
+{% extends 'admin/master.html' %}
+
+{% block admin %}
+<h2>{{ title }}</h2>
+{{ message('message') }}
+
+<form action="">
+ <input type="text" name="search" value="{{ search }}" class="form-control" placeholder="Buscar usuário administrador">
+</form>
+
+<table class="table table-striped">
+ <thead>
+  <tr>
+   <th>Id</th>
+   <th>Nome</th>
+   <th>E-mail</th>
+   <th>Fone</th>
+   <th></th>
+  </tr>
+ </thead>
+ <tbody>
+  {% for row in rows %}
+   <tr>
+    <td>{{ row.id }}</td>
+    <td>{{ row.name }}</td>
+    <td>{{ row.email }}</td>
+    <td>{{ row.phone }}</td>
+    <td style="white-space:nowrap">
+     <a class="btn btn-sm btn-success me-2" href="/admin/user/edit/{{ row.id }}">Editar</a>
+     <a class="btn btn-sm btn-danger" href="/admin/user/delete/{{ row.id }}">Excluir</a>
+    </td>
+   </tr>
+  {% endfor %}
+ </tbody>
+</table>
+<a href="/admin/user" class="btn btn-success float-end" title="Adicionar usuário administrador">Adicionar</a>
+{{ links | raw }}
+
+{% endblock %}
